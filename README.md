@@ -21,6 +21,6 @@ npm build
 yarn build
 ```
 
-&#169; 2020 | Browser for app Wrapps | GrafSoul | [MIT License].
+&#169; 2020 | Browser for Radion app | GrafSoul | [MIT License].
 
 [mit license]: https://github.com/GrafSoul/radio-online-browser/blob/master/LICENSE
