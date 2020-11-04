@@ -1,0 +1,91 @@
+/* RESET */
+*,
+*::after,
+*::before {
+	margin: 0;
+	padding: 0;
+	box-sizing: inherit;
+}
+
+a:active,
+a:focus {
+	outline: none;
+}
+
+input,
+textarea {
+	outline: none;
+}
+
+input:active,
+textarea:active {
+	outline: none;
+}
+
+:focus {
+	outline: none;
+}
+
+textarea {
+	resize: none;
+}
+
+textarea {
+	resize: vertical;
+}
+
+textarea {
+	resize: horizontal;
+}
+
+button:active,
+button:focus {
+	outline: none !important;
+}
+
+button::-moz-focus-inner {
+	border: 0 !important;
+}
+
+::selection {
+	background-color: transparent;
+}
+
+/* FONTS */
+@font-face {
+  font-family: 'SFUIText';
+  src: url('./fonts/SFProDisplay-Regular.woff') format('woff2');
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: 'SFUIText';
+  src: url('./fonts/SFUIText-Bold.woff') format('woff2');
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: 'SFUIProDisplay';
+  src: url('./fonts/SFProDisplay-Regular.woff') format('woff2');
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: 'SFUIProDisplay';
+  src: url('./fonts/SFProDisplay-Bold.woff') format('woff2');
+  font-weight: bold;
+}
+
+/* BASE STYLES */
+html {
+	width: 100vw;
+	height: 100vh;
+	background-color: #282c34;
+}
+
+body {
+	font-family: "SFUIText", sans-serif;
+	font-weight: normal;
+	font-size: 16px;
+	line-height: 1.7;
+}

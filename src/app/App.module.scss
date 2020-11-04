@@ -1,0 +1,78 @@
+
+.layout {
+	width: 100vw;
+	height: 100vh;
+	position: relative;
+	z-index: 20;
+	-webkit-user-select: none;
+	background:rgb(27, 33, 46) url("./images/logo_window.png") no-repeat center center;
+	overflow: hidden;
+
+	.topbar {
+		height: 38px;
+  		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		padding: 0;
+		background-color: rgb(23, 28, 39);
+		border-bottom: 1px solid rgb(38, 47, 66);
+		box-shadow: 1px 1px 16px rgba(0, 0, 0, 0.8);
+		-webkit-app-region: drag;
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		color: #fff;
+		z-index: 20;
+	}
+
+	.webviewContainer {
+		position: absolute;
+		top: 38px;
+		bottom: 0;
+		right:0;
+		left: 0;
+		z-index: 30;
+		transition: top .8s ease;
+	}
+
+	.title {
+		flex: 1;
+		margin-top: 4px;
+		text-align: center;
+		font-family: "SFUIProDisplay", sans-serif;
+		font-size: 16px;
+		font-weight: bold;
+		color: rgb(129, 186, 218);
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+
+		span {
+			font-size: 14px;
+			font-weight: normal;
+		}
+	}
+
+	.btnWindow,
+	.closeWindow {
+		font-size: 16px;
+		padding: 5px 11px;
+		cursor: pointer;
+		-webkit-app-region: no-drag;
+		background-color:rgb(21, 26, 36);
+		color:rgb(129, 186, 218);
+		border: none;
+		outline: none;
+		transition: all .3s ease;
+
+		&:hover {
+			color: rgb(255, 255, 255);
+			background-color:rgb(38, 47, 65);
+		}
+	}
+
+	.closeWindow:hover {
+		background-color: #f50a3d !important;
+	}
+}
