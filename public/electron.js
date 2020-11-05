@@ -22,15 +22,15 @@ let mainWindow;
 const createWindow = async () => {
     mainWindow = new BrowserWindow({
         title: 'Radion Browser',
-        width: 1280,
-        height: 720,
+        width: 980,
+        height: 750,
         minWidth: 340,
         minHeight: 220,
         frame: false,
         show: false,
         focusable: true,
         fullscreenable: false,
-        alwaysOnTop: true,
+        alwaysOnTop: false,
         icon: getIcon(),
         backgroundColor: '#1b212e',
         webPreferences: {
@@ -73,6 +73,10 @@ app.on('activate', () => {
     if (mainWindow === null) {
         createWindow();
     }
+});
+
+ipcMain.on('on-top', (event, args) => {
+    mainWindow.setAlwaysOnTop(args);
 });
 
 ipcMain.on('channalOne', (event, args) => {

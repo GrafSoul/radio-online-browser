@@ -11,20 +11,26 @@ const App = () => {
     const [status, setStatus] = useState(false);
     const [id, setId] = useState('');
     const [title, setTitle] = useState('Radion Browser');
-    const [url, setUrl] = useState('https://google.com');
+    const [url, setUrl] = useState('Invalid URL or Not connection!');
+    // const [url, setUrl] = useState('https://google.com');
     const [isLoading, setLoading] = useState(false);
-    const [topbar, setTopbar] = useState(false);
     const [webview, setWebview] = useState(document.querySelector('webview'));
+    const [isTop, setIsTop] = useState(false);
 
     useEffect(() => {
-        setWebview(document.querySelector('webview'));
-        ipcRenderer.on('urlOpen', (event, id, title, url) => {
-            if (url.length !== 0) {
-                setId(id);
-                setTitle(title);
-                setUrl(url);
-            }
-        });
+        let valid = /^(ftp|http|https):\/\/[^ "]+$/.test(url);
+
+        if (valid) {
+            setWebview(document.querySelector('webview'));
+
+            ipcRenderer.on('urlOpen', (event, id, title, url) => {
+                if (url.length !== 0) {
+                    setId(id);
+                    setTitle(title);
+                    setUrl(url);
+                }
+            });
+        }
     }, []);
 
     const handleGoBack = () => {
@@ -64,24 +70,20 @@ const App = () => {
         mainWindow.close();
     };
 
-    const handleTopbarUp = () => {
-        setTopbar(true);
+    const handlerTopWindow = () => {
+        ipcRenderer.send('on-top', true);
+        setIsTop(!isTop);
     };
 
-    const handleTopbarDown = () => {
-        setTopbar(false);
+    const handlerDownWindow = () => {
+        ipcRenderer.send('on-top', false);
+        setIsTop(!isTop);
     };
-
-    const top = [classes.webviewContainer, topbar ? classes.up : ''];
 
     return (
         <div className={classes.layout}>
             <div className={classes.topbarWrap}>
-                <div
-                    className={classes.topbar}
-                    onMouseEnter={handleTopbarUp}
-                    onMouseLeave={handleTopbarDown}
-                >
+                <div className={classes.topbar}>
                     <div>
                         <button
                             className={classes.btnWindow}
@@ -106,6 +108,23 @@ const App = () => {
                         {title} - <span>{url}</span>
                     </div>
                     <div>
+                        {isTop ? (
+                            <button
+                                className={classes.btnWindow}
+                                onClick={handlerDownWindow}
+                                title="Unpin on top of all"
+                            >
+                                <i className="fal fa-arrow-from-top"></i>
+                            </button>
+                        ) : (
+                            <button
+                                className={classes.btnWindow}
+                                onClick={handlerTopWindow}
+                                title="Pin on top of all"
+                            >
+                                <i className="fal fa-arrow-to-top"></i>
+                            </button>
+                        )}
                         <button
                             className={classes.btnWindow}
                             onClick={handleMinimizeWindow}
@@ -131,7 +150,12 @@ const App = () => {
             </div>
 
             <main className={classes.content}>
-                <webview src={url} className={top.join(' ')}></webview>
+                {url !== 'Invalid URL or Not connection!' ? (
+                    <webview
+                        src={url}
+                        className={classes.webviewContainer}
+                    ></webview>
+                ) : null}
             </main>
         </div>
     );

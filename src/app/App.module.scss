@@ -9,26 +9,27 @@
 	overflow: hidden;
 
 	.topbar {
-		height: 38px;
+		height: 36px;
   		display: flex;
 		flex-direction: row;
 		justify-content: space-between;
+		align-items: center;
 		padding: 0;
 		background-color: rgb(23, 28, 39);
 		border-bottom: 1px solid rgb(38, 47, 66);
-		box-shadow: 1px 1px 16px rgba(0, 0, 0, 0.8);
+		box-shadow: 1px 1px 16px rgba(0, 0, 0, 0.4);
 		-webkit-app-region: drag;
 		position: fixed;
 		top: 0;
 		left: 0;
 		right: 0;
 		color: #fff;
-		z-index: 20;
+		z-index: 100;
 	}
 
 	.webviewContainer {
 		position: absolute;
-		top: 38px;
+		top: 35px;
 		bottom: 0;
 		right:0;
 		left: 0;
@@ -38,10 +39,9 @@
 
 	.title {
 		flex: 1;
-		margin-top: 4px;
 		text-align: center;
 		font-family: "SFUIProDisplay", sans-serif;
-		font-size: 16px;
+		font-size: .9em;
 		font-weight: bold;
 		color: rgb(129, 186, 218);
 		overflow: hidden;
@@ -56,8 +56,8 @@
 
 	.btnWindow,
 	.closeWindow {
-		font-size: 16px;
-		padding: 5px 11px;
+		margin: 0;
+		padding: 5px 10px 3px;
 		cursor: pointer;
 		-webkit-app-region: no-drag;
 		background-color:rgb(21, 26, 36);
