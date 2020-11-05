@@ -75,7 +75,7 @@ app.on('activate', () => {
     }
 });
 
-ipcMain.on('on-top', (event, args) => {
+ipcMain.on('on-top-browser', (event, args) => {
     mainWindow.setAlwaysOnTop(args);
 });
 

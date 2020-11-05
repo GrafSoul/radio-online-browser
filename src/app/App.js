@@ -12,25 +12,21 @@ const App = () => {
     const [id, setId] = useState('');
     const [title, setTitle] = useState('Radion Browser');
     const [url, setUrl] = useState('Invalid URL or Not connection!');
-    // const [url, setUrl] = useState('https://google.com');
     const [isLoading, setLoading] = useState(false);
     const [webview, setWebview] = useState(document.querySelector('webview'));
     const [isTop, setIsTop] = useState(false);
 
     useEffect(() => {
-        let valid = /^(ftp|http|https):\/\/[^ "]+$/.test(url);
+        setWebview(document.querySelector('webview'));
 
-        if (valid) {
-            setWebview(document.querySelector('webview'));
-
-            ipcRenderer.on('urlOpen', (event, id, title, url) => {
-                if (url.length !== 0) {
-                    setId(id);
-                    setTitle(title);
-                    setUrl(url);
-                }
-            });
-        }
+        ipcRenderer.on('urlOpen', (event, id, title, url) => {
+            let valid = /^(ftp|http|https):\/\/[^ "]+$/.test(url);
+            if (url.length !== 0 && valid) {
+                setId(id);
+                setTitle(title);
+                setUrl(url);
+            }
+        });
     }, []);
 
     const handleGoBack = () => {
@@ -70,13 +66,13 @@ const App = () => {
         mainWindow.close();
     };
 
-    const handlerTopWindow = () => {
-        ipcRenderer.send('on-top', true);
+    const handlerTopWindow = (id) => {
+        ipcRenderer.send('on-top-browser', id, true);
         setIsTop(!isTop);
     };
 
-    const handlerDownWindow = () => {
-        ipcRenderer.send('on-top', false);
+    const handlerDownWindow = (id) => {
+        ipcRenderer.send('on-top-browser', id, false);
         setIsTop(!isTop);
     };
 
@@ -111,7 +107,7 @@ const App = () => {
                         {isTop ? (
                             <button
                                 className={classes.btnWindow}
-                                onClick={handlerDownWindow}
+                                onClick={() => handlerDownWindow(id)}
                                 title="Unpin on top of all"
                             >
                                 <i className="fal fa-arrow-from-top"></i>
@@ -119,7 +115,7 @@ const App = () => {
                         ) : (
                             <button
                                 className={classes.btnWindow}
-                                onClick={handlerTopWindow}
+                                onClick={() => handlerTopWindow(id)}
                                 title="Pin on top of all"
                             >
                                 <i className="fal fa-arrow-to-top"></i>
